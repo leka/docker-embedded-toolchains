@@ -1,0 +1,16 @@
+{
+	"markdownlint.config": {
+		"MD002": false,
+		"MD007": {
+			"indent": 4
+		},
+		"MD024": {
+			"siblings_only": true
+		},
+		"MD029": {
+			"style": "one"
+		},
+		"MD033": false
+	},
+	"editor.formatOnSave": true,
+}
