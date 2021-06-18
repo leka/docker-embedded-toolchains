@@ -1,0 +1,10 @@
+on: [push]
+
+jobs:
+  clang_format_test:
+    runs-on: ubuntu-latest
+    container: weareleka/docker-clang-format:latest
+    name: Test clang-format
+    steps:
+      - name: Clang-format
+        run: clang-format --version

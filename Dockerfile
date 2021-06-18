@@ -81,3 +81,24 @@ RUN unzip ${SONARCLOUD_CLI_FILENAME}
 COPY /archives/${SONARCLOUD_BUILD_WRAPPER_FILENAME} /
 RUN [ -f ${SONARCLOUD_BUILD_WRAPPER_FILENAME} ] || wget ${SONARCLOUD_BUILD_WRAPPER_URL}
 RUN unzip ${SONARCLOUD_BUILD_WRAPPER_FILENAME}
+
+#
+# Mark: - Create clang-format ci image
+#
+
+FROM ubuntu:latest AS ci_clang_format
+
+ARG APT_CLEAN_CACHE
+ARG DEBIAN_FRONTEND=noninteractive
+
+ARG CLANG_TOOLCHAIN_EXTRACT_DIRECTORY
+
+WORKDIR /workspace/tools/clang
+
+COPY --from=download_clang_toolchain /${CLANG_TOOLCHAIN_EXTRACT_DIRECTORY}/bin/clang-format ./bin/clang-format
+
+ENV PATH="/workspace/tools/clang/bin:${PATH}"
+
+RUN apt update && apt install -y --no-install-recommends python3 \
+	&& apt autoremove -y \
+	&& ${APT_CLEAN_CACHE}
