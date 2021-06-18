@@ -8,3 +8,30 @@ jobs:
     steps:
       - name: Clang-format
         run: clang-format --version
+
+  arm_toolchain_test:
+    runs-on: ubuntu-latest
+    container: weareleka/docker-arm-toolchain:latest
+    name: Test ARM toolchain
+    steps:
+      - name: GCC
+        run: |
+          arm-none-eabi-gcc -v
+          arm-none-eabi-g++ -v
+
+      - name: Python
+        run: |
+          pip list
+
+      - name: Mbed tools
+        run: |
+          mbed-cli --help
+
+      - name: Other tools
+        run: |
+          curl --version
+          cmake --version
+          make --version
+          ninja --version
+          ccache -s
+          zstd --version
